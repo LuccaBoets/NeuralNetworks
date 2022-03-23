@@ -25,31 +25,30 @@ convergenceLimit = 1e-5
 
 model = Model(uniform(0,10), uniform(0,10))
 
-while True:
+for x in range(100):
+
+# while True:
+
+    # for row in data:
+    #     currentFiness += (row[1] - (model.slope*row[0]+model.intercept))
+
+    # # (-2 / len(training_set.training_samples)) * s
+
+    # newIntersept = model.intercept - learningRate * 
+    # newSlope = 0
+
+    currentFiness = 0.0
 
     for row in data:
         currentFiness += (row[1] - (model.slope*row[0]+model.intercept))**2
 
-    # (-2 / len(training_set.training_samples)) * s
+    currentFiness /= len(data)
 
-    newIntersept = model.intercept - learningRate * 
-    newSlope = 0
+    print(currentFiness)
 
-    
-
-
-    # currentFiness = 0.0
-
-    # for row in data:
-    #     currentFiness += (row[1] - (model.slope*row[0]+model.intercept))**2
-
-    # currentFiness /= len(data)
-
-    # print(currentFiness)
-
-    # if currentFiness < minFiness:
-    #     minFiness = currentFiness
-    #     minModel = model
+    if currentFiness < minFiness:
+        minFiness = currentFiness
+        minModel = model
 
 
 data_x = []
