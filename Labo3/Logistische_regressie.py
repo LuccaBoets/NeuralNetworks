@@ -3,6 +3,14 @@ import matplotlib.pyplot as plt
 import csv
 import numpy as np
 import math as math
+from os import environ
+
+def suppress_qt_warnings():
+    environ["QT_DEVICE_PIXEL_RATIO"] = "0"
+    environ["QT_AUTO_SCREEN_SCALE_FACTOR"] = "1"
+    environ["QT_SCREEN_SCALE_FACTORS"] = "1"
+    environ["QT_SCALE_FACTOR"] = "1"
+
 
 class Model:
     def __init__(self, slope, intercept):
@@ -48,7 +56,7 @@ minFiness = float("inf")
 minModel = None
 
 
-for i in range(1):
+for i in range(100):
 
     slope = []
     for j in range(6):
@@ -59,15 +67,41 @@ for i in range(1):
     currentFiness = 0.0
 
     for training_sample in trainingSet.training_samples:
-        print(training_sample.label)
 
-        currentFiness += (training_sample.label*math.log(model.sigmoid(training_sample.features))) + ((1-training_sample.label) * math.log(1-model.sigmoid(training_sample.features)))
+        
+
+        currentFiness += - (training_sample.label*math.log(model.sigmoid(training_sample.features))) - ((1-training_sample.label) * math.log(1.0001-model.sigmoid(training_sample.features)))
 
         # if training_sample.label == 1:
         #     currentFiness += - math.log(model.sigmoid(training_sample.features))
         # else:
-        #     print(model.sigmoid(training_sample.features))
-        #     currentFiness += - math.log(1-model.sigmoid(training_sample.features))
+        #     # print(model.sigmoid(training_sample.features))
+        #     currentFiness += - math.log(1.0001-model.sigmoid(training_sample.features))
+
+    currentFiness /= len(trainingSet.training_samples)
 
 
-    print(currentFiness/ len(trainingSet.training_samples))
+    if currentFiness <= minFiness:
+        minFiness = currentFiness
+        minModel = model
+
+for x in trainingSet.training_samples:
+    print(minModel.sigmoid(x.features))
+
+
+
+suppress_qt_warnings()
+
+data_x = []
+data_y = []
+
+for training_sample in trainingSet.training_samples:
+    data_x.append(minModel.sigmoid(training_sample.features))
+    data_y.append(training_sample.label)
+
+plt.scatter(data_x, data_y)
+# plt.xticks(np.arange(0, 15, step=1),np.arange(0, 15, step=1))
+
+# plt.plot(data_x, data_y, '-r')
+
+plt.show()
