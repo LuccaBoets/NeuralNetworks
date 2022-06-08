@@ -21,9 +21,11 @@ grid_search = GridSearchCV(rf_model, param_grid, cv=5)
 
 model = grid_search.fit(x, y)
 
-pprint(model.best_estimator_.get_params())
+# pprint(model.best_estimator_.get_params())
 
 predictions = model.predict(x)
 
-print(predictions)
+# print(predictions)
+
+print("hyperparameter tuning:")
 print(model.score(x, y))
