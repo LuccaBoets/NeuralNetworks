@@ -1,7 +1,6 @@
 from sklearn.model_selection import GridSearchCV
 from sklearn import datasets
 from sklearn.ensemble import RandomForestClassifier
-import random
 from pprint import pprint
 
 
@@ -11,9 +10,9 @@ x = iris.data
 y = iris.target
 
 param_grid = {
-    'n_estimators': np.random.uniform(-1, 20, 10),
+    'n_estimators': [9,10, 11,15, 20,25, 40, 50],
     'max_features': ['auto', 'sqrt', 'log2'],
-    'min_samples_leaf': np.random.uniform(-1, 15, 10),
+    'min_samples_leaf': [1, 5, 10, 15],
 }
 
 rf_model = RandomForestClassifier(random_state=1)
