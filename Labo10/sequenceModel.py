@@ -11,11 +11,11 @@ from sklearn.metrics import mean_squared_error
 
 
 def main():
-    dataset = pandas.read_csv('Labo10/airline-passengers.csv', usecols=[1], engine='python')
+    dataset = pandas.read_csv('C:\\Users\\boets\\OneDrive\\Documents\\\GitHub\\NeuralNetworks\\Labo10/airline-passengers.csv', usecols=[1], engine='python')
     plt.plot(dataset)
 
     numpy.random.seed(7)
-    dataframe = pandas.read_csv('Labo10/airline-passengers.csv', usecols=[1], engine='python')
+    dataframe = pandas.read_csv('C:\\Users\\boets\\OneDrive\\Documents\\GitHub\\NeuralNetworks\\Labo10/airline-passengers.csv', usecols=[1], engine='python')
     dataset = dataframe.values
     dataset = dataset.astype('float32')
 
@@ -39,7 +39,7 @@ def main():
     network.add(Dense(1))
     network.compile(loss='mean_squared_error')
 
-    network.fit(trainMatrixX, trainMatrixY, epochs=100, batch_size=1, verbose=2)
+    network.fit(trainMatrixX, trainMatrixY, epochs=10, batch_size=1, verbose=2)
 
     trainPredict = network.predict(trainMatrixX)
     testPredict = network.predict(testMatrixX)
